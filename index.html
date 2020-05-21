@@ -76,7 +76,8 @@
 	<span class="syntax-all syntax-keyword">let</span> y<span class="syntax-all syntax-keyword">:</span> <span class="syntax-all syntax-constant">Int</span>
 
 	<span class="syntax-all syntax-keyword">var</span> description<span class="syntax-all syntax-keyword">:</span> <span class="syntax-all syntax-constant">String</span> {
-		<span class="syntax-all syntax-comment">// Int folgt auch dem CustomStringConvertible protcol
+		<span class="syntax-all syntax-comment">// Int folgt auch dem 
+</span>		<span class="syntax-all syntax-comment">// CustomStringConvertible protcol
 </span>		<span class="syntax-all syntax-keyword">return</span> <span class="syntax-all syntax-string">&quot;(\(</span><span class="syntax-all syntax-parameter">x</span><span class="syntax-all syntax-string">), \(</span><span class="syntax-all syntax-parameter">y</span><span class="syntax-all syntax-string">))&quot;</span>
 	}
 }
@@ -127,8 +128,8 @@
 <p>Gehen wir von einem einfachen Szenario aus. Ein Programmierer möchte gerne das Alter eines Nutzers mittels eines Eingabefeldes auf dem Bildschirm feststellen und dieses für eine Altersvalidierung nutzen. Von dem Textfeld erhält der Programmierer einen Wert vom Typ <code>String</code> zurück. Dieser muss nun in ein geeignetes Format bspw. einen <code>Int</code> überführt werden. <br/>Für den Datentyp <code>Int</code> gibt es eine passende Initialisierungsfunktion die aus unserem String einen vermeintlichen Integerwert macht. Vermeintlich deswegen, da die Apple Programmierer mit der Initialisierungsfunktion keinen <code>Int</code> sondern einen <code>Int?</code> zurück geben. Damit sagen sie uns, dass mit dem übergebene String nicht unbedingt ein Integerwert erzeugt werden konnte.</p>
 
 <pre><code class="code-highlighted code-swift"><span class="syntax-all syntax-comment">/* 
-</span><span class="syntax-all syntax-comment">	Die Typen-Deklarationen sind nicht zwingend notwenig da der 
-	Compiler diese selber herausfindet. 
+</span><span class="syntax-all syntax-comment">	Die Typen-Deklarationen sind nicht zwingend notwenig 
+</span><span class="syntax-all syntax-comment">	da der Compiler diese selber herausfindet. 
 	Sie dienen hier rein zum besseren Verständnis.
 </span><span class="syntax-all syntax-comment">*/</span>
 <span class="syntax-all syntax-keyword">let</span> textFeld<span class="syntax-all syntax-keyword">:</span> <span class="syntax-all syntax-constant">String</span> <span class="syntax-all syntax-keyword">=</span> <span class="syntax-all syntax-string">&quot;22&quot;</span>
@@ -171,7 +172,9 @@
 } <span class="syntax-all syntax-keyword">else</span> {
 	<span class="syntax-all syntax-constant">print</span>(<span class="syntax-all syntax-string">&quot;Das Alter konnte nicht in einen Int überführt werden!&quot;</span>)
 }</code></pre></li>
-	<li><strong>Nil-Coalescing Operator</strong><br/>Mit dem Nil-Coalescing Operator kann man einer Variable einen Standardwert zuweisen, wenn der linke Wert <code>nil</code> seien sollte.
+	<li><strong>Nil-Coalescing Operator</strong>
+
+		<p>Mit dem Nil-Coalescing Operator kann man einer Variable einen Standardwert zuweisen, wenn der linke Wert <code>nil</code> seien sollte.</p>
 
 <pre><code class="code-highlighted code-swift"><span class="syntax-all syntax-keyword">let</span> alter<span class="syntax-all syntax-keyword">:</span> <span class="syntax-all syntax-constant">Int</span> <span class="syntax-all syntax-keyword">=</span> optionalAlter <span class="syntax-all syntax-keyword">??</span> <span class="syntax-all syntax-constant">0</span></code></pre></li>
 	<li><strong>Force Unwrapping</strong>
