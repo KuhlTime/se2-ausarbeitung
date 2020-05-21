@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+	</head>
+<body>
+<figure><img src="Artboard.png"/></figure>
+
+<h1>Swift &amp; Optionals</h1>
+
+<h3>Ausarbeitung für Software Engineering 2 </h3>
+
+<ul>
+	<li>Name: <strong>André Kuhlmann</strong></li>
+	<li>Matrikelnummer: <strong>779690</strong></li>
+	<li>Fachbereich: <strong>Elektro- und Informationstechnik <br/>Hochschule Düsseldorf</strong></li>
+	<li>Erstellt: <strong>19. Mai 2020</strong></li>
+	<li>Letztes Update: <strong>21. Mai 2020 </strong></li>
+</ul>
+
+<hr />
+
+<h2>Einleitung</h2>
+
+<p>Swift ist eine von Apple im Jahre 2014 auf der weltweiten Entwicklerkonferenz (World Wide Developer Conference - kurz WWDC) heraus gebrachte Programmiersprache. Swift sollte die bisher auf iOS und macOS (damals OSX) vorherrschende Programmiersprache Objective C durch ihre Sicherheit, Schnelligkeit und Einfachheit ablösen. Seit Dezember 2015 ist Swift auch als Open Source Projekt auf GitHub verfügbar und belegte in der <a href="https://insights.stackoverflow.com/survey/2019#technology-_-most-loved-dreaded-and-wanted-languages">StackOverflow Developer Survey 2019</a> den 6. Platz der beliebtesten Programmiersprachen unter Entwicklern. Neben macOS oder Linux ist auch bald ein offizielles Release auf Windows geplant.</p>
+
+<p>Nachdem ich ein wenig auf die Grundlagen von Swift eingegangen bin, werde ich mich mit dieser Ausarbeitung auf <strong>Optionals</strong>, einem zentralen Bestandteil für die Sicherheit in Swift, fokussieren.</p>
+
+<p>Apple legt bei seiner Programmiersprache großen Wert auf die Verständlichkeit und hat gleichzeitig mit der Veröffentlichung von Swift unzählig viele Ressourcen zum Lernen der neuen Sprache herausgegeben. So gibt es mehrere von Apple geschrieben Bücher kostenlos in iBooks zum Herunterladen.</p>
+
+<ul>
+	<li><a href="https://books.apple.com/de/book/einf%C3%BChrung-in-die-app-entwicklung-mit-swift/id1483864150">Einführung in die App-Entwicklung mit Swift</a> (Einsteiger)</li>
+	<li><a href="https://books.apple.com/de/book/the-swift-programming-language-swift-5-2/id881256329">The Swift Programming Language</a> (Fortgeschritten)</li>
+</ul>
+
+<h2>Setup</h2>
+
+<p>Um Swift ausführen zu können wird die Swift Toolchain benötigt. Auf macOS wird diese automatisch mit Xcode, der offiziellen IDE von Apple, installiert. Auf Linux benötigt es ein paar mehr Schritte welche <a href="https://swift.org/download/#using-downloads">hier</a> näher beschrieben sind. Die Swift Toolchain kommt mit vielen nützlichen Programmen zum Erstellen und Debuggen von Swift Anwendungen. Eines dieser Tools ist auch eine REPL (Read-eval-print loop), ein interaktiver Editor zum einfachen Ausführen und Evaluieren von Swift Code. Möchte man Swift ohne viel Setup einfach mal ausprobieren, ohne die Toolchain lokal installieren zu müssen bietet es sich an eine &quot;Online REPL&quot;, bspw. auf <a href="https://repl.it">repl.it</a> zu öffnen. Wer ein iPad besitzt, der kann sich im App Store eine sehr stark vereinfachte Version von Xcode unter dem Namen &quot;Playgrounds&quot; installieren. Dort bekommt man in Interaktiven Kursen die einfachsten Grundlagen des Programmierens mit Swift beigebracht.</p>
+
+<h2>Swift Grundlagen</h2>
+
+<p>Swift wurde primär zum Erstellen von Anwendungen auf Apples eigenen Betriebssystemen (iOS / iPadOS, macOS, tvOS, watchOS) entwickelt. Seit der Veröffentlichung von Swift als OpenSource Sprache findet Swift aber auch in anderen Feldern immer mehr Beliebtheit. Einige spanende Projekte sind beispielsweise eine Implementierung auf einem AVR-Microcontroller oder die Verwendung von Swift als Backend-Server (IBM Kitura, Vapor). </p>
+
+<p>Für jeden der mal eine Programmiersprache gesehen hat sollte Swift bis auf einige Besonderheiten schnell zu verstehen sein. Immerhin war die Komplexität und die Unleserlichkeit von ObjC ein Grund dafür warum Swift entwickelt wurde.</p>
+
+<p>Im nachfolgenden werde ich ein wenig auf die Besonderheiten von Swift eingehen. Dabei werde ich aber Grundlagen und Konzepte die aus anderen Sprachen bekannt sind, wie Konstanten <code>let</code> oder Konstrukte wie <code>enum</code>, <code>class</code>, und <code>struct</code> überspringen, da sie sich im Wesentlichen nicht groß von den anderen unterscheiden.</p>
+
+<h3>Type Safety</h3>
+
+<p>Swift erlaubt es nicht Werte unterschiedlicher Datentypen miteinander zu kombinieren. So ist das Addieren eines <code>Float</code> mit einem <code>Double</code> erst nach einer Umwandlung in einer der beiden Formate möglich.</p>
+
+<h3>Type Inference</h3>
+
+<p>Da der Swift Compiler über eine Funktion namens &quot;Type Inference&quot; verfügt müssen Variablentypen nicht explizit festgelegt werden, sondern werden vom Compiler automatisch zugeordnet.</p>
+
+<pre><code class="code-highlighted code-swift"><span class="syntax-all syntax-keyword">var</span> eng<span class="syntax-all syntax-keyword">:</span> <span class="syntax-all syntax-constant">String</span> <span class="syntax-all syntax-keyword">=</span> <span class="syntax-all syntax-string">&quot;Hello World!&quot;</span>
+<span class="syntax-all syntax-keyword">var</span> deu <span class="syntax-all syntax-keyword">=</span> <span class="syntax-all syntax-string">&quot;Hallo Welt!&quot;</span> <span class="syntax-all syntax-comment">// Type Inferation
+</span></code></pre>
+
+<p>In der Ausarbeitung werde ich den Datentyp einer Variable immer mit angeben, da es hier vielleicht zum besseren Verständnis beisteuert. Dies ist allerdings wie bereits erwähnt nicht der Standard und sollte zur Übersichtlichkeit auch möglichst vermieden werden.</p>
+
+<h3>String Interpolation</h3>
+
+<p>Swift bietet die Möglichkeit Werte schnell und einfach in einen String einzubinden. Damit dies jedoch möglich ist, muss ein Datentyp dem <code>CustomStringConvertible</code> protocol folgen. Dieser schreibt einen String Rückgabewert mit der Bezeichnung <code>description</code> vor, welcher als solcher in den zu konstruierenden String eingesetzt wird. Hier an einer Beispiel Implementierung für einen 2 dimensionalen Punkt.</p>
+
+<pre><code class="code-highlighted code-swift"><span class="syntax-all syntax-keyword">struct</span> <span class="syntax-all syntax-entity">Point</span>: CustomStringConvertible {
+	<span class="syntax-all syntax-keyword">let</span> x<span class="syntax-all syntax-keyword">:</span> <span class="syntax-all syntax-constant">Int</span>
+	<span class="syntax-all syntax-keyword">let</span> y<span class="syntax-all syntax-keyword">:</span> <span class="syntax-all syntax-constant">Int</span>
+
+	<span class="syntax-all syntax-keyword">var</span> description<span class="syntax-all syntax-keyword">:</span> <span class="syntax-all syntax-constant">String</span> {
+		<span class="syntax-all syntax-comment">// Int folgt auch dem CustomStringConvertible protcol
+</span>		<span class="syntax-all syntax-keyword">return</span> <span class="syntax-all syntax-string">&quot;(\(</span><span class="syntax-all syntax-parameter">x</span><span class="syntax-all syntax-string">), \(</span><span class="syntax-all syntax-parameter">y</span><span class="syntax-all syntax-string">))&quot;</span>
+	}
+}
+
+<span class="syntax-all syntax-keyword">let</span> p1 <span class="syntax-all syntax-keyword">=</span> <span class="syntax-all syntax-constant">Point</span>(<span class="syntax-all syntax-constant">x</span>: <span class="syntax-all syntax-constant">4</span>, <span class="syntax-all syntax-constant">y</span>: <span class="syntax-all syntax-constant">5</span>)
+
+<span class="syntax-all syntax-constant">print</span>(<span class="syntax-all syntax-string">&quot;Punkt: \(</span><span class="syntax-all syntax-parameter">p1</span><span class="syntax-all syntax-string">)&quot;</span>) <span class="syntax-all syntax-comment">// Punkt: (4, 5)
+</span><span class="syntax-all syntax-constant">print</span>(<span class="syntax-all syntax-string">&quot;Punkt: \(</span><span class="syntax-all syntax-parameter">p1.</span><span class="syntax-all syntax-constant">description</span><span class="syntax-all syntax-string">)&quot;</span>) <span class="syntax-all syntax-comment">// Punkt: (4, 5)
+</span></code></pre>
+
+<h3>Xcode</h3>
+
+<p>Ich habe hier Apples IDE mit als Feature aufgeführt, da sie die Programmiererfahrung von Swift mit vielen nützlichen Features deutlich verbessert. Beispielsweise kann man sich durch einen Mausklick mit gedrückter ⌥ Optionstaste weitere Informationen zu einzelnen Variablen, Funktionen und Objekten anzeigen lassen.</p>
+
+<h2>Der Optional</h2>
+
+<h3>Was ist ein Optional?</h3>
+
+<p>Ein Optional baut auf das Konzept eines Wächterwertes / Sentinels auf. Ein Optional ist ein Datentyp welcher darstellen kann das ein Wert möglicherweise nicht vorhanden ist. Dieses nicht vorhanden sein eines Wertes gibt es in vielen Sprachen und wird häufig durch ein bestimmtes Steuerzeichen wie <code>undefined</code>, <code>Null</code> oder wie in Swift durch <code>nil</code> dargestellt. <br/>Was Swift in dieser Hinsicht einzigartig macht ist, dass man dem Compiler explizit mitteilen muss, ob man davon ausgeht, dass eine Variable zu irgend einem Zeitpunkt keinen Wert haben kann. Standardgemäß erlauben die Variablentypen in Swift dies nämlich nicht. Das macht den Umgang mit nicht vorhandenen Werten deutlich sicherer. Da man sich wenn kein Optional vorliegt auch nicht um einen möglichen Fall kümmern muss in dem kein Wert vorhanden ist. <br/>Was in C als der &quot;Billion Dollar Mistake&quot; bekannt ist löst Swift mit der Unterscheidung zwischen optimalen Werten und nicht optionalen Werten.</p>
+
+<h3>Wie definiert man einen Optional?</h3>
+
+<p>Ein Optional wird mit einem <code>?</code> im Suffix des Variablentyps deklariert. Dies teilt dem Compiler mit, dass eine Variable möglicherweise keinen Wert gespeichert hat.</p>
+
+<pre><code class="code-highlighted code-swift"><span class="syntax-all syntax-keyword">var</span> a<span class="syntax-all syntax-keyword">:</span> <span class="syntax-all syntax-constant">String</span><span class="syntax-all syntax-keyword">?</span></code></pre>
+
+<h3>Wie ist ein Optional implementiert?</h3>
+
+<p>Ein Optional ist im Grunde nichts anderes als eine Aufzählung, eine Enumeration zweier Zustände. Diese zwei Zustände sind <em>es ist ein Wert vorhanden</em> <code>.some</code> oder <em>es ist kein Wert vorhanden</em> <code>.none</code>. </p>
+
+<pre><code class="code-highlighted code-swift"><span class="syntax-all syntax-keyword">enum</span> <span class="syntax-all syntax-entity">Optional</span>&lt;<span class="syntax-all syntax-constant">Wrapped</span>&gt; {
+	<span class="syntax-all syntax-keyword">case</span> <span class="syntax-all syntax-constant">some</span>(Wrapped)
+	<span class="syntax-all syntax-keyword">case</span> <span class="syntax-all syntax-constant">none</span>
+}</code></pre>
+
+<p><code>Wrapped</code> ist ein Generischer Typ und spiegelt den gewünschten Datentypen wieder. </p>
+
+<p>Anstelle der Kurzform mit dem <code>?</code> könnte ein Optional nach der Implementierung oben also auch wie folgt definiert werden:</p>
+
+<pre><code class="code-highlighted code-swift"><span class="syntax-all syntax-keyword">var</span> b<span class="syntax-all syntax-keyword">:</span> <span class="syntax-all syntax-constant">Optional</span><span class="syntax-all syntax-keyword">&lt;</span><span class="syntax-all syntax-constant">String</span><span class="syntax-all syntax-keyword">&gt;</span> <span class="syntax-all syntax-keyword">=</span> .<span class="syntax-all syntax-constant">some</span>(<span class="syntax-all syntax-string">&quot;Hallo&quot;</span>)
+<span class="syntax-all syntax-comment">// gleich mit
+</span><span class="syntax-all syntax-keyword">var</span> c<span class="syntax-all syntax-keyword">:</span> <span class="syntax-all syntax-constant">String</span><span class="syntax-all syntax-keyword">?</span> <span class="syntax-all syntax-keyword">=</span> <span class="syntax-all syntax-string">&quot;Hallo&quot;</span></code></pre>
+
+<h3>Wofür ist der Optional in der Praxis zu gebrauchen?</h3>
+
+<p>Gehen wir von einem einfachen Szenario aus. Ein Programmierer möchte gerne das Alter eines Nutzers mittels eines Eingabefeldes auf dem Bildschirm feststellen und dieses für eine Altersvalidierung nutzen. Von dem Textfeld erhält der Programmierer einen Wert vom Typ <code>String</code> zurück. Dieser muss nun in ein geeignetes Format bspw. einen <code>Int</code> überführt werden. <br/>Für den Datentyp <code>Int</code> gibt es eine passende Initialisierungsfunktion die aus unserem String einen vermeintlichen Integerwert macht. Vermeintlich deswegen, da die Apple Programmierer mit der Initialisierungsfunktion keinen <code>Int</code> sondern einen <code>Int?</code> zurück geben. Damit sagen sie uns, dass mit dem übergebene String nicht unbedingt ein Integerwert erzeugt werden konnte.</p>
+
+<pre><code class="code-highlighted code-swift"><span class="syntax-all syntax-comment">/* 
+</span><span class="syntax-all syntax-comment">	Die Typen-Deklarationen sind nicht zwingend notwenig da der 
+	Compiler diese selber herausfindet. 
+	Sie dienen hier rein zum besseren Verständnis.
+</span><span class="syntax-all syntax-comment">*/</span>
+<span class="syntax-all syntax-keyword">let</span> textFeld<span class="syntax-all syntax-keyword">:</span> <span class="syntax-all syntax-constant">String</span> <span class="syntax-all syntax-keyword">=</span> <span class="syntax-all syntax-string">&quot;22&quot;</span>
+<span class="syntax-all syntax-keyword">let</span> optionalAlter<span class="syntax-all syntax-keyword">:</span> <span class="syntax-all syntax-constant">Int</span><span class="syntax-all syntax-keyword">?</span> <span class="syntax-all syntax-keyword">=</span> <span class="syntax-all syntax-constant">Int</span>(textFeld)
+
+<span class="syntax-all syntax-keyword">let</span> mindestAlter<span class="syntax-all syntax-keyword">:</span> <span class="syntax-all syntax-constant">Int</span> <span class="syntax-all syntax-keyword">=</span> <span class="syntax-all syntax-constant">12</span>
+
+<span class="syntax-all syntax-comment">// 🛑 Value of optional type &#39;Int?&#39; must be unwrapped to a value of type &#39;Int&#39;
+</span><span class="syntax-all syntax-keyword">if</span> (optionalAlter <span class="syntax-all syntax-keyword">&gt;=</span> mindestAlter) {
+	<span class="syntax-all syntax-constant">print</span>(<span class="syntax-all syntax-string">&quot;Darf ins Kino&quot;</span>)
+} <span class="syntax-all syntax-keyword">else</span> {
+	<span class="syntax-all syntax-constant">print</span>(<span class="syntax-all syntax-string">&quot;Muss draußen bleiben&quot;</span>)
+}</code></pre>
+
+<p>Steht in dem Textfeld ein Wert, welcher nicht in einen Integer überführt werden konnte erhalten wir <code>nil</code> als unser <code>optionalAlter</code> zurück. <br/>Würden wir nun probieren mit einem möglicherweise nicht vorhandenem Wert unsere Altersvalidierung durchzuführen würden wir ziemlich bald auf Widerstand des Compilers stoßen. (🛑)</p>
+
+<p>In anderen Sprachen die keinen Optional haben wäre uns dieser Fehler wohlmöglich erst deutlich später aufgefallen.</p>
+
+<p>Um diesen Fehler zu beheben und um einen Nutzen aus dem Optionalem Wert zu ziehen werde ich als Nächstes auf mögliche Operationen eingehen mit denen ein Optional unwrapped, zu dt. entpackt werden kann, so das der Wert von uns ohne weitere Probleme verwendet werden kann.</p>
+
+<h3>Unwrapping</h3>
+
+<p>Das Unwrapping oder zu dt. entpacken eines Optional soll uns Zugriff auf den im Optional verschachtelten Wert geben. Das Unwrapping ist der Teil welcher der ganzen Optional Geschichte seine Sicherheit verleiht, da in diesem Schritt Fehler auf möglichst elegante weise ausgesondert werden.<br/>Für das Unwrapping bietet Swift mehrere Möglichkeiten:</p>
+
+<ul>
+	<li><strong>Guard Statement</strong><br/>Ein Guard Statement sorgt dafür, dass wenn eine Bedingung nicht erfüllt ist sofort gehandelt wird und der nachfolgende Code nur bei erfüllter Bedingung ausgeführt wird.
+
+<pre><code class="code-highlighted code-swift"><span class="syntax-all syntax-keyword">guard</span> <span class="syntax-all syntax-keyword">let</span> alter<span class="syntax-all syntax-keyword">:</span> <span class="syntax-all syntax-constant">Int</span> <span class="syntax-all syntax-keyword">=</span> optionalAlter <span class="syntax-all syntax-keyword">else</span> { 
+	<span class="syntax-all syntax-constant">print</span>(<span class="syntax-all syntax-string">&quot;Das Alter konnte nicht in einen Int überführt werden!&quot;</span>)
+	<span class="syntax-all syntax-keyword">return</span>
+}
+
+<span class="syntax-all syntax-constant">print</span>(<span class="syntax-all syntax-string">&quot;Der Nutzer ist: \(</span><span class="syntax-all syntax-parameter">alter</span><span class="syntax-all syntax-string">) Jahre alt.&quot;</span>)</code></pre></li>
+	<li><strong>if Statement</strong>
+
+		<p>Die if Abfrage fragt: &quot;Wenn du die neue Variable <code>alter</code> gleich der nicht optionalen Version von <code>optionalAlter</code> setzen kannst dann mache folgendes…&quot;.</p>
+
+<pre><code class="code-highlighted code-swift"><span class="syntax-all syntax-keyword">if</span> <span class="syntax-all syntax-keyword">let</span> alter<span class="syntax-all syntax-keyword">:</span> <span class="syntax-all syntax-constant">Int</span> <span class="syntax-all syntax-keyword">=</span> optionalAlter {
+	<span class="syntax-all syntax-constant">print</span>(<span class="syntax-all syntax-string">&quot;Der Nutzer ist: \(</span><span class="syntax-all syntax-parameter">alter</span><span class="syntax-all syntax-string">) Jahre alt.&quot;</span>)
+} <span class="syntax-all syntax-keyword">else</span> {
+	<span class="syntax-all syntax-constant">print</span>(<span class="syntax-all syntax-string">&quot;Das Alter konnte nicht in einen Int überführt werden!&quot;</span>)
+}</code></pre></li>
+	<li><strong>Nil-Coalescing Operator</strong><br/>Mit dem Nil-Coalescing Operator kann man einer Variable einen Standardwert zuweisen, wenn der linke Wert <code>nil</code> seien sollte.
+
+<pre><code class="code-highlighted code-swift"><span class="syntax-all syntax-keyword">let</span> alter<span class="syntax-all syntax-keyword">:</span> <span class="syntax-all syntax-constant">Int</span> <span class="syntax-all syntax-keyword">=</span> optionalAlter <span class="syntax-all syntax-keyword">??</span> <span class="syntax-all syntax-constant">0</span></code></pre></li>
+	<li><strong>Force Unwrapping</strong>
+
+		<p>Das Force Unwrapping zerstört den eigentlichen Nutzen eines Optionals. Mit ihm wird gesagt, dass man sich absolut sicher ist, dass in einem Optional ein Wert vorhanden ist und diesen entpacken kann.</p>
+
+<pre><code class="code-highlighted code-swift"><span class="syntax-all syntax-keyword">let</span> alter<span class="syntax-all syntax-keyword">:</span> <span class="syntax-all syntax-constant">Int</span> <span class="syntax-all syntax-keyword">=</span> optionalAlter<span class="syntax-all syntax-keyword">!</span> <span class="syntax-all syntax-comment">// &lt;- Force Unwrapped
+</span></code></pre>
+
+		<p>Ist der entpackte Wert dennoch <code>nil</code> so kommt es zu einem Fehler und das Programm stürzt mit der Fehlermeldung &quot;Unexpectedly found nil while unwrapping an Optional value&quot; ab.</p></li>
+</ul>
+
+<h2>Schlusswort</h2>
+
+<p>Ich hoffe, dass ich mit meinem Aufsatz einen kleinen Einblick in Swift und dessen Optional Typ verschaffen konnte. Und ich ein wenig von meiner Begeisterung für diese Sprache teilen konnte.<br/>Ich würde mir wünschen das die Swift Community in der Zukunft noch weiter wächst und diese Sprache noch lange fortbestand hat.</p>
+
+<p> <br/>Wie in fast all meinen Texten sind Rechtschreibfehler leider nicht ganz ausgeschlossen.</p>
+
+<h3>Fun Fact</h3>
+
+<p>In Swift ist es möglich Funktions- und Variablennamen mit Unicode Charakteren darunter auch Emojis zu deklarieren.</p>
+
+<pre><code class="code-highlighted code-swift"><span class="syntax-all syntax-keyword">let</span> 🐓 <span class="syntax-all syntax-keyword">=</span> <span class="syntax-all syntax-string">&quot;🍗&quot;</span>
+
+<span class="syntax-all syntax-keyword">func</span> 🥦() <span class="syntax-all syntax-keyword">-&gt;</span> <span class="syntax-all syntax-constant">String</span> {
+	<span class="syntax-all syntax-keyword">return</span> <span class="syntax-all syntax-string">&quot;🤢&quot;</span>
+}</code></pre>
+
+</body>
+</html>
+
