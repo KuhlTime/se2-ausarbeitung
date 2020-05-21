@@ -175,7 +175,7 @@ hr {
 }
 
 hr:after {
-	content: "❧"
+	content: "⎯"
 }
 
 h1 + hr {
