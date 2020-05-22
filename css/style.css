@@ -54,6 +54,10 @@ a:hover::before {
 	transform: scaleX(1);
 }
 
+iframe a::before {
+	visibility: hidden !important;
+}
+
 /* ========= */
 
 strong {
