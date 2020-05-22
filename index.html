@@ -4,10 +4,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta charset="utf-8" />
 		<link rel="stylesheet" type="text/css" href="css/style.css" />
-		<title>Swift & Optionals</title>
 	</head>
 <body>
-<figure><img src="Logo.svg"/></figure>
+<figure><img src="Artboard.svg"/></figure>
 
 <h1>Swift &amp; Optionals</h1>
 
@@ -85,10 +84,10 @@
 
 <span class="syntax-all syntax-keyword">let</span> p1 <span class="syntax-all syntax-keyword">=</span> <span class="syntax-all syntax-constant">Point</span>(<span class="syntax-all syntax-constant">x</span>: <span class="syntax-all syntax-constant">4</span>, <span class="syntax-all syntax-constant">y</span>: <span class="syntax-all syntax-constant">5</span>)
 
-<span class="syntax-all syntax-constant">print</span>(<span class="syntax-all syntax-string">&quot;Punkt: \(</span><span class="syntax-all syntax-parameter">p1</span><span class="syntax-all syntax-string">)&quot;</span>) <span class="syntax-all syntax-comment">// Punkt: (4, 5)
-</span><span class="syntax-all syntax-constant">print</span>(<span class="syntax-all syntax-string">&quot;Punkt: \(</span><span class="syntax-all syntax-parameter">p1.</span><span class="syntax-all syntax-constant">description</span><span class="syntax-all syntax-string">)&quot;</span>) <span class="syntax-all syntax-comment">// Punkt: (4, 5)
-</span></code></pre>
+<span class="syntax-all syntax-constant">print</span>(<span class="syntax-all syntax-string">&quot;Punkt: \(</span><span class="syntax-all syntax-parameter">p1</span><span class="syntax-all syntax-string">)&quot;</span>)
+<span class="syntax-all syntax-constant">print</span>(<span class="syntax-all syntax-string">&quot;Punkt: \(</span><span class="syntax-all syntax-parameter">p1.</span><span class="syntax-all syntax-constant">description</span><span class="syntax-all syntax-string">)&quot;</span>)</code></pre>
 
+<iframe frameborder="0" width="100%" height="200px" src="https://repl.it/@KuhlTime/CustomStringConvertible-Beispiel?lite=true&outputonly=true"></iframe>
 <h3>Xcode</h3>
 
 <p>Ich habe hier Apples IDE mit als Feature aufgeführt, da sie die Programmiererfahrung von Swift mit vielen nützlichen Features deutlich verbessert. Beispielsweise kann man sich durch einen Mausklick mit gedrückter ⌥ Optionstaste weitere Informationen zu einzelnen Variablen, Funktionen und Objekten anzeigen lassen.</p>
@@ -145,6 +144,7 @@
 	<span class="syntax-all syntax-constant">print</span>(<span class="syntax-all syntax-string">&quot;Muss draußen bleiben&quot;</span>)
 }</code></pre>
 
+<iframe frameborder="0" width="100%" height="180px" src="https://repl.it/@KuhlTime/CustomStringConvertible-Beispiel?lite=true&outputonly=true"></iframe>
 <p>Steht in dem Textfeld ein Wert, welcher nicht in einen Integer überführt werden konnte, erhalten wir <code>nil</code> als <code>optionalAlter</code> zurück. <br/>Würden wir nun probieren, mit einem möglicherweise nicht vorhandenem Wert, unsere Altersvalidierung durchzuführen, würden wir ziemlich bald auf Widerstand des Compilers stoßen. (🛑)</p>
 
 <p>In anderen Sprachen, die keinen Optional haben, wäre uns dieser Fehler wohlmöglich erst deutlich später aufgefallen.</p>
@@ -160,10 +160,12 @@
 
 <pre><code class="code-highlighted code-swift"><span class="syntax-all syntax-keyword">guard</span> <span class="syntax-all syntax-keyword">let</span> alter<span class="syntax-all syntax-keyword">:</span> <span class="syntax-all syntax-constant">Int</span> <span class="syntax-all syntax-keyword">=</span> optionalAlter <span class="syntax-all syntax-keyword">else</span> { 
 	<span class="syntax-all syntax-constant">print</span>(<span class="syntax-all syntax-string">&quot;Das Alter konnte nicht in einen Int überführt werden!&quot;</span>)
-	<span class="syntax-all syntax-keyword">return</span>
-}
+	<span class="syntax-all syntax-keyword">return</span> <span class="syntax-all syntax-comment">// Wenn in eine Funktion
+</span>}
 
-<span class="syntax-all syntax-constant">print</span>(<span class="syntax-all syntax-string">&quot;Der Nutzer ist: \(</span><span class="syntax-all syntax-parameter">alter</span><span class="syntax-all syntax-string">) Jahre alt.&quot;</span>)</code></pre></li>
+<span class="syntax-all syntax-constant">print</span>(<span class="syntax-all syntax-string">&quot;Der Nutzer ist \(</span><span class="syntax-all syntax-parameter">alter</span><span class="syntax-all syntax-string">) Jahre alt.&quot;</span>)</code></pre>
+
+		<iframe frameborder="0" width="100%" height="180px" src="https://repl.it/@KuhlTime/GuardStatement-Beispiel?lite=true&outputonly=true"></iframe></li>
 	<li><strong>if Statement</strong>
 
 		<p>Die if Abfrage fragt: &quot;Wenn du die neue Variable <code>alter</code> gleich der nicht optionalen Version von <code>optionalAlter</code> setzen kannst, dann mache folgendes…&quot;.</p>
@@ -172,12 +174,16 @@
 	<span class="syntax-all syntax-constant">print</span>(<span class="syntax-all syntax-string">&quot;Der Nutzer ist: \(</span><span class="syntax-all syntax-parameter">alter</span><span class="syntax-all syntax-string">) Jahre alt.&quot;</span>)
 } <span class="syntax-all syntax-keyword">else</span> {
 	<span class="syntax-all syntax-constant">print</span>(<span class="syntax-all syntax-string">&quot;Das Alter konnte nicht in einen Int überführt werden!&quot;</span>)
-}</code></pre></li>
+}</code></pre>
+
+		<iframe frameborder="0" width="100%" height="180px" src="https://repl.it/@KuhlTime/IfStatement-Beispiel?lite=true&outputonly=true"></iframe></li>
 	<li><strong>Nil-Coalescing Operator</strong>
 
 		<p>Mit dem Nil-Coalescing Operator kann man einer Variablen einen Standardwert zuweisen, wenn der linke Wert <code>nil</code> sein sollte.</p>
 
-<pre><code class="code-highlighted code-swift"><span class="syntax-all syntax-keyword">let</span> alter<span class="syntax-all syntax-keyword">:</span> <span class="syntax-all syntax-constant">Int</span> <span class="syntax-all syntax-keyword">=</span> optionalAlter <span class="syntax-all syntax-keyword">??</span> <span class="syntax-all syntax-constant">0</span></code></pre></li>
+<pre><code class="code-highlighted code-swift"><span class="syntax-all syntax-keyword">let</span> alter<span class="syntax-all syntax-keyword">:</span> <span class="syntax-all syntax-constant">Int</span> <span class="syntax-all syntax-keyword">=</span> optionalAlter <span class="syntax-all syntax-keyword">??</span> <span class="syntax-all syntax-constant">0</span></code></pre>
+
+		<iframe frameborder="0" width="100%" height="180px" src="https://repl.it/@KuhlTime/ForceUnwrapping-Beispiel?lite=true&outputonly=true"></iframe></li>
 	<li><strong>Force Unwrapping</strong>
 
 		<p>Das Force Unwrapping zerstört den eigentlichen Nutzen eines Optionals. Mit ihm wird gesagt, dass man sich absolut sicher ist, dass in einem Optional ein Wert vorhanden ist und diesen entpacken kann.</p>
@@ -185,6 +191,7 @@
 <pre><code class="code-highlighted code-swift"><span class="syntax-all syntax-keyword">let</span> alter<span class="syntax-all syntax-keyword">:</span> <span class="syntax-all syntax-constant">Int</span> <span class="syntax-all syntax-keyword">=</span> optionalAlter<span class="syntax-all syntax-keyword">!</span> <span class="syntax-all syntax-comment">// &lt;- Force Unwrapped
 </span></code></pre>
 
+		<iframe frameborder="0" width="100%" height="180px" src="https://repl.it/@KuhlTime/ForceUnwrapping-Beispiel?lite=true&outputonly=true"></iframe>
 		<p>Ist der entpackte Wert dennoch <code>nil</code> so kommt es zu einem Fehler und das Programm stürzt mit der Fehlermeldung &quot;Unexpectedly found nil while unwrapping an Optional value&quot; ab.</p></li>
 </ul>
 
@@ -215,3 +222,4 @@
 
 </body>
 </html>
+
