@@ -8,7 +8,15 @@
 	Customized by: André Kuhlmann
 */
 
+/* My Customizations */
+
+/* Animated Links */
+
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
+
+html {
+	scroll-behavior: smooth !important;
+}
 
 body {
 	text-align:  center;
@@ -56,6 +64,33 @@ a:hover::before {
 
 iframe a::before {
 	visibility: hidden !important;
+}
+
+
+/* Blocks */
+
+.block {
+	position: relative;
+	background-color: rgba(0,0,0, 0.03);
+	border-radius: 0.3em;
+	margin-top: 1em;
+	padding: 0.5em 1em;
+	text-align: left;
+	font-size: 90%;
+	color: #444;
+}
+
+.block > p {
+	margin: 0;
+}
+
+.block-title {
+	font-size: 100%;
+	color: #000;
+	margin-bottom: 0.5em !important;
+	padding-bottom: 0.2em;
+	width: 100%;
+	border-bottom: 1px solid #DDD;
 }
 
 /* ========= */
@@ -115,6 +150,10 @@ p {
 
 p + p {
 	margin:      0;
+	margin-top: 1em;
+}
+
+p > br::line-after {
 	text-indent: 1.5em;
 }
 

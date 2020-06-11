@@ -4,14 +4,13 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta charset="utf-8" />
 		<link rel="stylesheet" type="text/css" href="css/style.css" />
-		<title>Swift & Optionals</title>
 	</head>
 <body>
 <figure><img src="Logo.svg"/></figure>
 
 <h1>Swift &amp; Optionals</h1>
 
-<h3>Ausarbeitung für Software Engineering 2 </h3>
+<h3>Ausarbeitung für Software Engineering 2</h3>
 
 <figure><img src="Profile.png"/></figure>
 
@@ -20,29 +19,32 @@
 	<li>Matrikelnummer: <strong>779690</strong></li>
 	<li>Fachbereich: <strong>Elektro- und Informationstechnik <br/>Hochschule Düsseldorf</strong></li>
 	<li>Erstellt: <strong>19. Mai 2020</strong></li>
-	<li>Letztes Update: <strong>22. Mai 2020 </strong></li>
+	<li>Letztes Update: <b><span id="lastUpdated">Lädt ...</span></b></li>
 </ul>
 
 <hr />
 
+<h2>Inhaltsverzeichnis</h2>
+
+<div id="toc"></div>
 <h2>Einleitung</h2>
 
-<p>Swift ist eine von Apple im Jahre 2014 auf der weltweiten Entwicklerkonferenz (World Wide Developer Conference - kurz WWDC) heraus gebrachte Programmiersprache. Swift sollte die bisher auf iOS und macOS (damals OSX) vorherrschende Programmiersprache Objective C durch ihre Sicherheit, Schnelligkeit und Einfachheit ablösen. Seit Dezember 2015 ist Swift auch als Open Source Projekt auf GitHub verfügbar und belegte in der <a href="https://insights.stackoverflow.com/survey/2019#technology-_-most-loved-dreaded-and-wanted-languages" target="_blank">StackOverflow Developer Survey 2019</a> den 6. Platz der beliebtesten Programmiersprachen unter Entwicklern. Neben macOS oder Linux ist auch bald ein offizielles Release auf Windows geplant.</p>
+<p>Swift ist eine von Apple im Jahre 2014 auf der weltweiten Entwicklerkonferenz (World Wide Developer Conference - kurz WWDC) heraus gebrachte Programmiersprache. Swift sollte die bisher auf iOS und macOS (damals OSX) vorherrschende Programmiersprache Objective C durch ihre Sicherheit, Schnelligkeit und Einfachheit ablösen. Seit Dezember 2015 ist Swift auch als Open Source Projekt auf GitHub verfügbar und belegte in der <a href="https://insights.stackoverflow.com/survey/2019#technology-_-most-loved-dreaded-and-wanted-languages">StackOverflow Developer Survey 2019</a> den 6. Platz der beliebtesten Programmiersprachen unter Entwicklern. Neben macOS oder Linux ist auch bald ein offizielles Release auf Windows geplant.</p>
 
 <p>Nachdem ich ein wenig auf die Grundlagen von Swift eingegangen bin, werde ich mich mit dieser Ausarbeitung auf <strong>Optionals</strong>, einem zentralen Bestandteil für die Sicherheit in Swift, fokussieren.</p>
 
 <p>Apple legt bei seiner Programmiersprache großen Wert auf die Verständlichkeit und hat gleichzeitig mit der Veröffentlichung von Swift unzählig viele Ressourcen zum Lernen der neuen Sprache herausgegeben. So gibt es mehrere von Apple geschrieben Bücher kostenlos in iBooks zum Herunterladen.</p>
 
 <ul>
-	<li><a href="https://books.apple.com/de/book/einf%C3%BChrung-in-die-app-entwicklung-mit-swift/id1483864150" target="_blank">Einführung in die App-Entwicklung mit Swift</a> (Einsteiger)</li>
-	<li><a href="https://books.apple.com/de/book/the-swift-programming-language-swift-5-2/id881256329" target="_blank">The Swift Programming Language</a> (Fortgeschritten)</li>
+	<li><a href="https://books.apple.com/de/book/einf%C3%BChrung-in-die-app-entwicklung-mit-swift/id1483864150">Einführung in die App-Entwicklung mit Swift</a> (Einsteiger)</li>
+	<li><a href="https://books.apple.com/de/book/the-swift-programming-language-swift-5-2/id881256329">The Swift Programming Language</a> (Fortgeschritten)</li>
 </ul>
 
 <hr />
 
 <h2>Setup</h2>
 
-<p>Um Swift ausführen zu können, wird die Swift Toolchain benötigt. Auf macOS wird diese automatisch mit Xcode, der offiziellen IDE von Apple, installiert. Auf Linux benötigt es ein paar mehr Schritte welche <a href="https://swift.org/download/#using-downloads" target="_blank">hier</a> näher beschrieben sind. Die Swift Toolchain kommt mit vielen nützlichen Programmen zum Erstellen und Debuggen von Swift Anwendungen. Eines dieser Tools ist auch eine REPL (Read-eval-print loop), ein interaktiver Editor zum einfachen Ausführen und Evaluieren von Swift Code. Möchte man Swift ohne viel Setup einfach mal ausprobieren, ohne die Toolchain lokal installieren zu müssen, bietet es sich an, eine &quot;Online REPL&quot;, bspw. auf <a href="https://repl.it" target="_blank">repl.it</a> zu öffnen. Wer ein iPad besitzt, der kann sich im App Store eine sehr stark vereinfachte Version von Xcode unter dem Namen &quot;Playgrounds&quot; installieren. Dort bekommt man in Interaktiven Kursen die einfachsten Grundlagen des Programmierens mit Swift beigebracht.</p>
+<p>Um Swift ausführen zu können, wird die Swift Toolchain benötigt. Auf macOS wird diese automatisch mit Xcode, der offiziellen IDE von Apple, installiert. Auf Linux benötigt es ein paar mehr Schritte welche <a href="https://swift.org/download/#using-downloads">hier</a> näher beschrieben sind. Die Swift Toolchain kommt mit vielen nützlichen Programmen zum Erstellen und Debuggen von Swift Anwendungen. Eines dieser Tools ist auch eine REPL (Read-eval-print loop), ein interaktiver Editor zum einfachen Ausführen und Evaluieren von Swift Code. Möchte man Swift ohne viel Setup einfach mal ausprobieren, ohne die Toolchain lokal installieren zu müssen, bietet es sich an, eine &quot;Online REPL&quot;, bspw. auf <a href="https://repl.it">repl.it</a> zu öffnen. Wer ein iPad besitzt, der kann sich im App Store eine sehr stark vereinfachte Version von Xcode unter dem Namen &quot;Playgrounds&quot; installieren. Dort bekommt man in Interaktiven Kursen die einfachsten Grundlagen des Programmierens mit Swift beigebracht.</p>
 
 <hr />
 
@@ -89,7 +91,7 @@
 <span class="syntax-all syntax-constant">print</span>(<span class="syntax-all syntax-string">&quot;Punkt: \(</span><span class="syntax-all syntax-parameter">p1.</span><span class="syntax-all syntax-constant">description</span><span class="syntax-all syntax-string">)&quot;</span>)</code></pre>
 
 <iframe frameborder="0" width="100%" height="200px" src="https://repl.it/@KuhlTime/CustomStringConvertible-Beispiel?lite=true&outputonly=true"></iframe>
-<h3>Xcode</h3>
+<h3>XCode</h3>
 
 <p>Ich habe hier Apples IDE mit als Feature aufgeführt, da sie die Programmiererfahrung von Swift mit vielen nützlichen Features deutlich verbessert. Beispielsweise kann man sich durch einen Mausklick mit gedrückter ⌥ Optionstaste weitere Informationen zu einzelnen Variablen, Funktionen und Objekten anzeigen lassen.</p>
 
@@ -204,8 +206,8 @@
 <p> <br/>Wie in fast all meinen Texten sind Rechtschreibfehler leider nicht ganz ausgeschlossen.</p>
 
 <ul>
-	<li><a href="https://bitbucket.org/KuhlTime/ausarbeitung/src/master/" target="_blank">Repository</a></li>
-	<li><a href="https://swift.org/" target="_blank">Swift Webseite</a></li>
+	<li><a href="https://bitbucket.org/KuhlTime/ausarbeitung/src/master/">Repository</a></li>
+	<li><a href="https://swift.org/">Swift Webseite</a></li>
 </ul>
 
 <hr />
@@ -220,6 +222,140 @@
 	<span class="syntax-all syntax-keyword">return</span> <span class="syntax-all syntax-string">&quot;🤢&quot;</span>
 }</code></pre>
 
+<script>
+/* Preferences */
+
+let min = 2
+let max = 6
+
+let blacklist = [
+  'Inhaltsverzeichnis',
+  'Ausarbeitung für Software Engineering 2'
+]
+
+/* =========== */
+
+var headers = []
+
+window.onload = function() {
+	loadLastUpdatedBitbucket('kuhltime', 'ausarbeitung')
+  	generateTableOfContent()
+}
+
+
+/* Functions */
+
+function loadLastUpdatedBitbucket(user, repo) {
+	let $field = document.getElementById('lastUpdated')
+	let url = `https://api.bitbucket.org/2.0/repositories/${user}/${repo}/`
+
+	fetchAsync(url)
+		.then(data => { 
+			let updated = new Date(data.updated_on)
+
+			let options = { 
+				year: 'numeric', 
+				month: 'long', 
+				day: 'numeric'
+			}
+	
+			$field.innerHTML = updated.toLocaleDateString('de-DE', options)
+		})
+		.catch(error => { $field.innerHTML = error.message })
+}
+
+function generateTableOfContent() {
+	let $toc = document.getElementById('toc')
+
+	// gets all the headers that are available
+  headers = getHeaders(min, max)
+	
+  // The html string that gets populated and later displayed inside the
+  // table of content #toc element
+  var html = ''
+  
+  // The previousValue stores the depth of the last header
+  var previousValue = min - 1
+
+  headers.forEach(($header, index) => {
+  	// Get values
+    let headerValue = parseInt($header.localName.charAt(1))
+    let difference = previousValue - headerValue
+    let title = $header.innerHTML
+    let camelTitle = toCamelCase(title)
+
+		// Check if title is blacklisted
+    if (blacklist.includes(title)) {
+      return
+    }
+    
+    // Update header id
+    $header.id = camelTitle
+
+    var i = 0
+
+		// Add wrapper
+    if (difference > 0) {
+      // Go out
+      for (i; i < Math.abs(difference); i++) {
+        html += '</ul>'
+        previousValue--
+      }
+
+    } else if (difference < 0) {
+      // Go in
+      for (i; i < Math.abs(difference); i++) {
+        html += '<ul>'
+        previousValue++
+      }
+    }
+
+		// Add list item
+    html += `<li><a href="#${camelTitle}">${title}</a></li>`
+  })
+
+  $toc.innerHTML = html
+}
+
+function getHeaders(min, max) {
+  var tagNames = ''
+  var i = min
+
+  for (i; i <= max; i++) {
+    tagNames += `h${i}`
+    if (i != max) {
+      tagNames += ','
+    }
+  }
+
+  return document.querySelectorAll(tagNames)
+}
+
+// https://stackoverflow.com/a/2970588/4179020
+function toCamelCase(str) {
+  return str
+    .replace(/\s(.)/g, function($1) {
+      return $1.toUpperCase();
+    })
+    .replace(/\s/g, '')
+    .replace(/^(.)/, function($1) {
+      return $1.toLowerCase();
+    });
+}
+
+//https://gist.github.com/msmfsd/fca50ab095b795eb39739e8c4357a808 
+// async function
+async function fetchAsync (url) {
+  // await response of fetch call
+  let response = await fetch(url);
+  // only proceed once promise is resolved
+  let data = await response.json();
+  // only proceed once second promise is resolved
+  return data;
+}
+
+/* ========= */
+</script>
 </body>
 </html>
 
