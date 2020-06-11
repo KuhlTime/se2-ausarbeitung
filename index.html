@@ -267,6 +267,8 @@ function loadLastUpdatedBitbucket(user, repo) {
 function generateTableOfContent() {
 	let $toc = document.getElementById('toc')
 
+	$toc.innerHTML = 'Lädt ...'
+
 	// gets all the headers that are available
   headers = getHeaders(min, max)
 	
